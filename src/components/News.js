@@ -124,29 +124,55 @@ export default class News extends Component {
     this.state = {
       articleClass: this.articles,
       loading: false,
+      page: 1,
     };
   }
+
+  async componentDidMount() {
+    let url =
+      "https://newsapi.org/v2/top-headlines?country=us&apiKey=7edfd5861d33403f9c400df9f636410a&page=1&pageSize=20";
+    let data = await fetch(url);
+    let parseData = await data.json();
+    console.log(parseData);
+    this.setState({
+      articleClass: parseData.articles,
+      totalResults: parseData.totalResults,
+    });
+  }
+
+  hendelPrevClick = async () => {
+    let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=7edfd5861d33403f9c400df9f636410a&page=${
+      this.state.page - 1
+    }&pageSize=20`;
+    let data = await fetch(url);
+    let parseData = await data.json();
+    console.log(parseData);
+    this.setState({
+      page: this.state.page - 1,
+      articleClass: parseData.articles,
+    });
+  };
+
+  hendelNextClick = async () => {
+    if (this.state.page + 1 > Math.ceil(this.state.totalResults / 20)) {
+
+    } else {
+      let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=7edfd5861d33403f9c400df9f636410a&page=${
+        this.state.page + 1
+      }&pageSize=20`;
+      let data = await fetch(url);
+      let parseData = await data.json();
+      console.log(parseData);
+      this.setState({
+        page: this.state.page + 1,
+        articleClass: parseData.articles,
+      });
+    }
+  };
+
   render() {
     return (
       <>
-        {/* <div className="container my-5">
-          <h2>New - Top headlines</h2>
-          <div className="row">
-            {this.state.articleClass.map((element) => {
-              return (
-                <div className="col-md-3" key={element.url}>
-                  <NewsItem
-                    title={element.title.slice(0, 45)}
-                    imgUrl={element.urlToImage}
-                    discription={element.description.slice(0, 88)}
-                    newsUrl={element.url}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </div> */}
-
         <div className="container my-5">
           <h2>New - Top headlines</h2>
           <div className="row">
@@ -159,7 +185,7 @@ export default class News extends Component {
                         ? element.title.slice(0, 45)
                         : "No Title Available"
                     }
-                    imgUrl={element.urlToImage || "defaultImageUrl.jpg"} 
+                    imgUrl={element.urlToImage}
                     discription={
                       element.description
                         ? element.description.slice(0, 88)
@@ -170,6 +196,27 @@ export default class News extends Component {
                 </div>
               );
             })}
+          </div>
+        </div>
+        <div className="container my-5">
+          <div className="row">
+            <div className="d-flex justify-content-between">
+              <button
+                disabled={this.state.page <= 1}
+                type="button"
+                className="btn btn-dark"
+                onClick={this.hendelPrevClick}
+              >
+                &larr; Previous{" "}
+              </button>
+              <button
+                type="button"
+                className="btn btn-dark"
+                onClick={this.hendelNextClick}
+              >
+                Next &rarr;
+              </button>
+            </div>
           </div>
         </div>
       </>
