@@ -8,7 +8,7 @@ export default class App extends Component {
     return (
       <>
         <NavBar/>
-        <News pageSize={8}/>
+        <News pageSize={8} country="us" category="sport" />
       </>
     );
   }

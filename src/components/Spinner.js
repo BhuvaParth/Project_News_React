@@ -6,7 +6,7 @@ export default class Spinner extends Component {
     return (
       <>
         <div className="d-flex justify-content-center my-5">
-          <div class="loader text-center"></div>
+          <div className="loader text-center"></div>
         </div>
       </>
     );

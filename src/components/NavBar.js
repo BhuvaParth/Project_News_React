@@ -6,8 +6,8 @@ export default class NavBar extends Component {
       <>
         <nav className="navbar bg-dark navbar-expand-lg navbar-dark">
           <div className="container-fluid">
-            <a className="navbar-brand" href="#">
-              News
+            <a className="navbar-brand" href="/">
+              NewsPartner
             </a>
             <button
               className="navbar-toggler"
@@ -21,14 +21,53 @@ export default class NavBar extends Component {
               <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div className="navbar-nav">
-                <a className="nav-link active" aria-current="page" href="#">
-                  Home
-                </a>
-                <a className="nav-link" href="#">
-                  About
-                </a>
-              </div>
+              <ul className="navbar-nav">
+                <li className="nav-item">
+                  <a className="nav-link" aria-current="page" href="/">
+                    Home
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    About
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Business
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Entertainment
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    General
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Health
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Science
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Sports
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Technology
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </nav>
