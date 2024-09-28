@@ -4,8 +4,6 @@ import Spinner from "./Spinner";
 import PropTypes from "prop-types";
 
 export default class News extends Component {
-  articles = [];
-
   static defaultProps = {
     country: "us",
     pageSize: 8,
@@ -21,120 +19,84 @@ export default class News extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      articleClass: this.articles,
+      articles: [],
       loading: false,
       page: 1,
+      totalResults: 0,
     };
   }
 
   async componentDidMount() {
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=7edfd5861d33403f9c400df9f636410a&page=1&pageSize=${this.props.pageSize}`;
+    this.fetchNews();
+  }
+
+  async fetchNews() {
+    const { country, category, pageSize } = this.props;
+    const { page } = this.state;
     this.setState({ loading: true });
+
+    let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=7edfd5861d33403f9c400df9f636410a&page=${page}&pageSize=${pageSize}`;
     let data = await fetch(url);
-    let parseData = await data.json();
+    let parsedData = await data.json();
+
     this.setState({
-      articleClass: parseData.articles,
-      totalResults: parseData.totalResults,
+      articles: parsedData.articles,
+      totalResults: parsedData.totalResults,
       loading: false,
     });
   }
 
-  hendelPrevClick = async () => {
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}
-              &category=${this.props.category}&apiKey=7edfd5861d33403f9c400df9f636410a&page=${this.state.page - 1}
-              &pageSize=${this.props.pageSize}`;
-    this.setState({ loading: true });
-    let data = await fetch(url);
-    let parseData = await data.json();
-    this.setState({
-      page: this.state.page - 1,
-      articleClass: parseData.articles,
-      loading: false,
-    });
+  handlePrevClick = async () => {
+    this.setState(
+      { page: this.state.page - 1 },
+      () => {
+        this.fetchNews();
+      }
+    );
   };
 
-  hendelNextClick = async () => {
-    if (
-      !(
-        this.state.page + 1 >
-        Math.ceil(this.state.totalResults / this.props.pageSize)
-      )
-    ) {
-      let url = 
-                `https://newsapi.org/v2/top-headlines?country=${this.props.country}
-                &category=${this.props.category}&apiKey=7edfd5861d33403f9c400df9f636410a&page=${this.state.page + 1}
-                &pageSize=${this.props.pageSize}`;
-      this.setState({ loading: true });
-      let data = await fetch(url);
-      let parseData = await data.json();
-      this.setState({
-        page: this.state.page + 1,
-        articleClass: parseData.articles,
-        loading: false,
-      });
-    }
+  handleNextClick = async () => {
+    this.setState(
+      { page: this.state.page + 1 },
+      () => {
+        this.fetchNews();
+      }
+    );
   };
 
   render() {
     return (
-      <>
-        <div className="container my-5">
-          <h2 className="text-center my-5">
-            <strong>New - Top headlines</strong>
-          </h2>
-          {this.state.loading && <Spinner />}
-          <div className="row">
-            {!this.state.loading &&
-              this.state.articleClass.map((element) => {
-                return (
-                  <div className="col-md-3" key={element.url}>
-                    <NewsItem
-                      title={
-                        element.title
-                          ? element.title.slice(0, 45)
-                          : "No Title Available"
-                      }
-                      imgUrl={element.urlToImage}
-                      discription={
-                        element.description
-                          ? element.description.slice(0, 88)
-                          : "No Description Available"
-                      }
-                      newsUrl={element.url}
-                      author={element.author}
-                      date={element.publishedAt}
-                    />
-                  </div>
-                );
-              })}
-          </div>
+      <div className="container my-5">
+        <h2 className="text-center">Top Headlines</h2>
+        {this.state.loading && <Spinner />}
+        <div className="row">
+          {!this.state.loading &&
+            this.state.articles.map((element) => (
+              <div className="col-md-3" key={element.url}>
+                <NewsItem
+                  title={element.title ? element.title.slice(0, 45) : "No Title"}
+                  description={element.description ? element.description.slice(0, 88) : "No Description"}
+                  imgUrl={element.urlToImage}
+                  newsUrl={element.url}
+                  author={element.author}
+                  date={element.publishedAt}
+                />
+              </div>
+            ))}
         </div>
-        <div className="container my-5">
-          <div className="row">
-            <div className="d-flex justify-content-between">
-              <button
-                disabled={this.state.page <= 1}
-                type="button"
-                className="btn btn-dark"
-                onClick={this.hendelPrevClick}
-              >
-                &larr; Previous{" "}
-              </button>
-              <button
-                disabled={
-                  this.state.page + 1 >
-                  Math.ceil(this.state.totalResults / this.props.pageSize)
-                }
-                type="button"
-                className="btn btn-dark"
-                onClick={this.hendelNextClick}
-              >
-                Next &rarr;
-              </button>
-            </div>
-          </div>
+        <div className="container d-flex justify-content-between my-5">
+          <button disabled={this.state.page <= 1} className="btn btn-dark" onClick={this.handlePrevClick}>
+            &larr; Previous
+          </button>
+          <button
+            disabled={this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize)}
+            className="btn btn-dark"
+            onClick={this.handleNextClick}
+          >
+            Next &rarr;
+          </button>
         </div>
-      </>
+      </div>
     );
   }
 }
