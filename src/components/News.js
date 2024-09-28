@@ -101,6 +101,8 @@ export default class News extends Component {
                           : "No Description Available"
                       }
                       newsUrl={element.url}
+                      author={element.author}
+                      date={element.publishedAt}
                     />
                   </div>
                 );
