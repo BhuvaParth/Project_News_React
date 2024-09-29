@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NavBar from "./components/NavBar";
 import News from "./components/News";
+import Footer from "./components/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 export default class App extends Component {
@@ -19,6 +20,7 @@ export default class App extends Component {
             <Route exact path="/sports" element={<News key="sports" pageSize={8} country="us" category="sports" />} />
             <Route exact path="/technology" element={<News key="technology" pageSize={8} country="us" category="technology" />} />
           </Routes>
+          <Footer />
         </>
       </Router>
     );

@@ -1,4 +1,4 @@
-/* HTML: <div class="loader"></div> */
+/* -------------- Loader Css -------------- */
 .loader {
     width: 30px;
     height: 15px;
@@ -61,4 +61,29 @@
     50% {
         transform: rotate(calc(var(--s, 1)*180deg))
     }
+}
+
+/* --------------- footer --------------- */
+
+li{
+    list-style: none;
+}
+.footer-section{
+    padding: 10px;
+    color: white !important;
+    background: #212529;
+    height: auto;
+}
+
+.footer-brand{
+    font-size: 22px;
+    font-weight: 500;
+    text-decoration: none;
+}
+.list-wrapper{
+    padding: 20px 0px;
+}
+.list-wrapper a{
+    text-decoration: none;
+    color: #ffffff8c;
 }
