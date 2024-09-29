@@ -1,33 +1,64 @@
-/* -------- loader --------- */
 /* HTML: <div class="loader"></div> */
 .loader {
-    width: 50px;
-    aspect-ratio: 1;
-    display: grid;
-    color: #000;
-    background: radial-gradient(farthest-side, currentColor calc(100% - 6px), #0000 calc(100% - 5px) 0);
-    mask: radial-gradient(farthest-side, #0000 calc(100% - 13px), #000 calc(100% - 12px));
-    border-radius: 50%;
-    animation: l19 2s infinite linear;
+    width: 30px;
+    height: 15px;
+    background: black;
+    position: relative;
+    animation: l9-0 1.5s infinite linear;
 }
 
-.loader::before,
-.loader::after {
+.loader:before,
+.loader:after {
     content: "";
-    grid-area: 1/1;
-    background:
-        linear-gradient(currentColor 0 0) center,
-        linear-gradient(currentColor 0 0) center;
-    background-size: 100% 10px, 10px 100%;
-    background-repeat: no-repeat;
+    position: absolute;
+    background: inherit;
+    bottom: 100%;
+    width: 50%;
+    height: 100%;
+    animation: inherit;
+    animation-name: l9-1;
 }
 
-.loader::after {
-    transform: rotate(45deg);
+.loader:before {
+    left: 0;
+    transform-origin: bottom left;
+    --s: -1;
 }
 
-@keyframes l19 {
+.loader:after {
+    right: 0;
+    transform-origin: bottom right;
+}
+
+@keyframes l9-0 {
+
+    0%,
+    10% {
+        transform: translateY(0%) scaleY(1)
+    }
+
+    49.99% {
+        transform: translateY(-50%) scaleY(1)
+    }
+
+    50% {
+        transform: translateY(-50%) scaleY(-1)
+    }
+
+    90%,
     100% {
-        transform: rotate(1turn)
+        transform: translateY(-100%) scaleY(-1)
+    }
+}
+
+@keyframes l9-1 {
+
+    10%,
+    90% {
+        transform: rotate(0deg)
+    }
+
+    50% {
+        transform: rotate(calc(var(--s, 1)*180deg))
     }
 }
