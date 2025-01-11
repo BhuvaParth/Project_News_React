@@ -73,7 +73,7 @@ export default class News extends Component {
         <div className="row">
           {!this.state.loading &&
             this.state.articles.map((element) => (
-              <div className="col-md-3" key={element.url}>
+              <div className="col-md-3 d-flex justify-content-center p-0" key={element.url}>
                 <NewsItem
                   title={
                     element.title ? element.title.slice(0, 45) : "No Title"

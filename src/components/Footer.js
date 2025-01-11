@@ -7,7 +7,7 @@ export default class Footer extends Component {
       <footer className="footer-section">
         <div className="container">
           <div className="row">
-            <div className="col-4">
+            <div className="col-3">
               <div className="d-flex flex-column justify-content-center gap-1 h-100">
                 <Link className="footer-brand text-white " to="/">
                   NewsPartner
@@ -16,9 +16,10 @@ export default class Footer extends Component {
                 <span className="fs-6">&copy; 2024</span>
               </div>
             </div>
-            <div className="col-4">
+            <div className="col-3">
               <div className="list-wrapper">
                 <ul className="d-flex flex-column gap-2 me-auto mb-2 mb-lg-0 p-0">
+                  <h6>Menu</h6>
                   <li className="">
                     <Link className="" to="/">
                       Home
@@ -43,9 +44,10 @@ export default class Footer extends Component {
               </div>
             </div>
 
-            <div className="col-4">
+            <div className="col-3">
               <div className="list-wrapper">
                 <ul className="d-flex flex-column gap-2 me-auto mb-2 mb-lg-0 p-0">
+                  <h6>Menu</h6>
                   <li className="">
                     <Link className="" to="/health">
                       Health
@@ -66,6 +68,17 @@ export default class Footer extends Component {
                       Technology
                     </Link>
                   </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="col-3">
+              <div className="list-wrapper">
+                <ul className="d-flex flex-column gap-2 me-auto mb-2 mb-lg-0 p-0">
+                  <li className="">
+                    <h6 className="b-1">Contact</h6>
+                  </li>
+                  <li className="">Email - newspartner365@gmail.com</li>
                 </ul>
               </div>
             </div>
