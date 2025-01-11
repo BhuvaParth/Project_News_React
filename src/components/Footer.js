@@ -78,7 +78,7 @@ export default class Footer extends Component {
                   <li className="">
                     <h6 className="b-1">Contact</h6>
                   </li>
-                  <li className="">Email - newspartner365@gmail.com</li>
+                  <li className="">Email - newspartner247@gmail.com</li>
                 </ul>
               </div>
             </div>
